@@ -21,12 +21,17 @@ refs.buttonStart.addEventListener('click', onClickButtonStart)
 refs.buttonStop.addEventListener('click', onClickButtonStop)
 
 function onClickButtonStart() {   
+    refs.buttonStart.toggleAttribute('disabled')
+    refs.buttonStop.toggleAttribute('disabled')
+
     intervalId = setInterval(changeColorBg, 1000)
 }
 
 function onClickButtonStop() {
-    clearInterval(intervalId)
-    refs.buttonStart.removeAttribute('disabled')
+    refs.buttonStart.toggleAttribute('disabled')
+    refs.buttonStop.toggleAttribute('disabled')
+
+    clearInterval(intervalId)    
 }
 
 function getRandomHexColor() {
@@ -35,7 +40,7 @@ function getRandomHexColor() {
 
 function changeColorBg() {
     refs.body.style.backgroundColor = getRandomHexColor()
-    refs.buttonStart.setAttribute('disabled', '')
+    
 }
 
 
@@ -56,15 +61,18 @@ function changeColorBg() {
     
 //     if (atr[1].name === 'data-start') {
 //         intervalId = setInterval(function () {
-//             refs.body.style.backgroundColor = getRandomHexColor()
-//             event.target.setAttribute('disabled', '')
+//             refs.body.style.backgroundColor = getRandomHexColor()                
 //         }, 1000)        
+
+//         refs.buttons[0].toggleAttribute('disabled')
+//         refs.buttons[1].toggleAttribute('disabled')
 //     }
 
 //     if (atr[1].name === 'data-stop') {
 //         clearInterval(intervalId)
-//         refs.body.style = ''
-//         refs.buttons[0].removeAttribute('disabled')        
+
+//         refs.buttons[0].toggleAttribute('disabled')    
+//         refs.buttons[1].toggleAttribute('disabled')
 //     }
 // }
 
