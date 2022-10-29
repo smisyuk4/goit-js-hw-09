@@ -16,3 +16,30 @@ img {
   display: block;
   max-width: 100%;
 }
+
+/*Timer*/
+[data-start]{
+  margin-bottom: 20px;
+}
+
+.timer{
+  display: flex;
+  gap: 20px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  min-width: 70px;
+  padding: 5px;
+
+  border: 1px solid black;
+  border-radius: 5px;
+  background-image: linear-gradient(red 65%, yellow 65%);
+}
+
+.value {
+  font-size: 40px;
+}
