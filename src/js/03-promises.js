@@ -33,69 +33,33 @@ function onClickButtonCreate(event) {
   const step = refs.form.elements.step.value
   const amount = refs.form.elements.amount.value
 
-  let time
-  for (let position = 1; position <= amount; position += 1) {
-    if (position === 1) {
-      time = Number(delay)
-      createPromise(position, time)
-    } else {
-      time += Number(step);
-      createPromise(position, time)
-    }
+  let time = Number(delay)
+  for (let position = 1; position <= amount; position += 1) {   
+    createPromise(position, time)
+    time += Number(step);
   } 
 }
 
 function createPromise(position, delay) {
-  const shouldResolve = Math.random() > 0.3;
-  if (shouldResolve) {
-    // Fulfill - Виконано 
-    Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);         
+  const promice = new Promise((resolve, reject) => {
+    const shouldResolve = Math.random() > 0.3;
+
+    setTimeout(() => {
+      if (shouldResolve) {
+        resolve({position, delay });
+      } else {
+        reject({position, delay });
+      }
+    }, Number(delay));   
+  });
+
+  promice
+  .then(({ position, delay }) => {
+    Notify.success(`Fulfilled promise ${position} in ${delay}ms`);         
     console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
-  } else {
-    // Reject Відхилено 
-    Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);         
+  })
+  .catch(({ position, delay }) => {
+    Notify.failure(`Rejected promise ${position} in ${delay}ms`);         
     console.log(`❌ Rejected promise ${position} in ${delay}ms`); 
-  }
+  });
 }
-
- // const promice = new Promise((resolve, reject) => {
-  //   const shouldResolve = Math.random() > 0.3;
-  //   setTimeout(() => {
-  //     if (shouldResolve) {
-  //     resolve({position: 1000, delay });
-  //     } else {
-  //       reject({position: 1000, delay });
-  //     }
-  //   }, delay);
-  // });
-
-  // console.log(promice)
-
-  // createPromise(position, delay)
-  // promice
-  // .then(({ position, delay }) => {
-  //   Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);         
-  //   console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
-  // })
-  // .catch(({ position, delay }) => {
-  //   Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);         
-  //   console.log(`❌ Rejected promise ${position} in ${delay}ms`); 
-  // });
-
-
- // const isSuccess = true;
-
-  // const promise = new Promise((resolve, reject) => {
-  //   setTimeout(() => {
-  //     if (isSuccess) {
-  //       resolve("Success! Value passed to resolve function");
-  //     } else {
-  //       reject("Error! Error passed to reject function");
-  //     }
-  //   }, 2000);
-  // });
-
-  // promise.then(
-  // value => {
-  //   console.log(value);
-  // })
